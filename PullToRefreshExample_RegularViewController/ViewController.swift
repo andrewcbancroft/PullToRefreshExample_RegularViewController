@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
 		
 		cell.textLabel?.text = movies[indexPath.row].title
 		cell.detailTextLabel?.text = movies[indexPath.row].genre
