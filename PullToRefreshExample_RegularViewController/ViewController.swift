@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	lazy var refreshControl: UIRefreshControl = {
 		let refreshControl = UIRefreshControl()
-		refreshControl.addTarget(self, action: #selector(ViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+		refreshControl.addTarget(self, action: #selector(ViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
 		
 		return refreshControl
 	}()
@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		self.tableView.addSubview(self.refreshControl)
 	}
 	
-	func handleRefresh(refreshControl: UIRefreshControl) {
+	func handleRefresh(_ refreshControl: UIRefreshControl) {
 		// Do some reloading of data and update the table view's data source
 		// Fetch more objects from a web service, for example...
 		
@@ -44,21 +44,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		let newMovie = Movie(title: "Serenity", genre: "Sci-fi")
 		movies.append(newMovie)
 		
-		movies.sortInPlace() { $0.title < $1.title }
+		movies.sort() { $0.title < $1.title }
 		
 		self.tableView.reloadData()
 		refreshControl.endRefreshing()
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return movies.count
 	}
 	
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
 		
-		cell.textLabel?.text = movies[indexPath.row].title
-		cell.detailTextLabel?.text = movies[indexPath.row].genre
+		cell.textLabel?.text = movies[(indexPath as NSIndexPath).row].title
+		cell.detailTextLabel?.text = movies[(indexPath as NSIndexPath).row].genre
 		
 		return cell
 	}
